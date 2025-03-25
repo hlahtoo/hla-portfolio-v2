@@ -10,11 +10,10 @@ import React, { act, useEffect, useRef } from "react";
 import * as THREE from "three";
 import { SkeletonUtils } from "three-stdlib";
 export function Avatar(props) {
-  const { animation } = props;
-  const { headFollow, cursorFollow, wireframe } = useControls({
+  const { animation, wireframe } = props;
+  const { headFollow, cursorFollow } = useControls({
     headFollow: false,
     cursorFollow: false,
-    wireframe: false,
   });
 
   const group = useRef();
@@ -145,3 +144,6 @@ export function Avatar(props) {
 }
 
 useGLTF.preload("/models/hh-avatar.glb");
+useFBX.preload("animations/Typing.fbx");
+useFBX.preload("animations/Standing_idle.fbx");
+useFBX.preload("animations/Falling_idle.fbx");

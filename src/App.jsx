@@ -4,14 +4,18 @@ import { Experience } from "./components/Experience";
 import { ScrollControls, Scroll } from "@react-three/drei";
 import { Interface } from "./components/interface";
 import { ScrollManager } from "./components/ScrollManager";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Menu } from "./components/Menu";
 import { framerMotionConfig } from "../config";
 import { Leva } from "leva";
 import { Cursor } from "./components/Cursor";
+import { LoadingScreen } from "./components/LoadingScreen";
+
 function App() {
   const [section, setSection] = useState(0);
+  const [started, setStarted] = useState(false);
   const [menuOpened, setMenuOpened] = useState(false);
+  const [experienceReady, setExperienceReady] = useState(false);
 
   useEffect(() => {
     setMenuOpened(false);
@@ -19,6 +23,11 @@ function App() {
 
   return (
     <>
+      <LoadingScreen
+        started={started}
+        setStarted={setStarted}
+        experienceReady={experienceReady}
+      />
       <MotionConfig
         transition={{
           ...framerMotionConfig,
@@ -29,10 +38,17 @@ function App() {
           <ScrollControls pages={4} damping={0.1}>
             <ScrollManager section={section} onSectionChange={setSection} />
             <Scroll>
-              <Experience section={section} menuOpened={menuOpened} />
+              <Suspense>
+                <Experience
+                  section={section}
+                  menuOpened={menuOpened}
+                  onSectionChangeFromApp={setSection}
+                  setExperienceReady={setExperienceReady}
+                />
+              </Suspense>
             </Scroll>
             <Scroll html>
-              <Interface setSection={setSection}></Interface>
+              {started && <Interface setSection={setSection} />}
             </Scroll>
           </ScrollControls>
         </Canvas>
