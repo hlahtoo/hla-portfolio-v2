@@ -113,7 +113,6 @@ const socialLinks = {
 };
 
 function playHoverAnimation(object, isHovering) {
-  console.log("Hovering:", object.name, object.userData); // Check for missing initial values
   if (!object) return;
 
   // Ensure object has initial values stored
@@ -490,7 +489,6 @@ export function OfficeNew(props) {
     pianoKeysTl.timeScale(1.2);
 
     orderedKeyNames.forEach((key, index) => {
-      console.log(Object.keys(pianoKeysRefs.current));
       const pianoKey = pianoKeysRefs.current[key];
       if (pianoKey) {
         pianoKeysTl

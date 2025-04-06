@@ -59,8 +59,8 @@ export const Experience = (props) => {
     let curSection = Math.floor(data.scroll.current * data.pages);
     if (!state.camera.position || !state.camera.lookAt) return;
 
-    if (curSection > 3) {
-      curSection = 3;
+    if (curSection > 4) {
+      curSection = 4;
     }
 
     if (curSection !== section) {
@@ -112,7 +112,12 @@ export const Experience = (props) => {
             scaleZ: 0,
           },
           1: {
-            y: -viewport.height + 0.5,
+            scaleX: 0,
+            scaleY: 0,
+            scaleZ: 0,
+          },
+          2: {
+            y: -viewport.height * 2 + 0.5,
             x: isMobile ? 0.3 : 0,
             z: 7,
             rotateX: 0,
@@ -122,9 +127,9 @@ export const Experience = (props) => {
             scaleY: isMobile ? 1.5 : 1,
             scaleZ: isMobile ? 1.5 : 1,
           },
-          2: {
+          3: {
             x: isMobile ? -1.4 : -2,
-            y: -viewport.height * 2 + 0.5,
+            y: -viewport.height * 3 - 0.5,
             z: 0,
             rotateX: 0,
             rotateY: Math.PI / 2,
@@ -133,8 +138,8 @@ export const Experience = (props) => {
             scaleY: 1,
             scaleZ: 1,
           },
-          3: {
-            y: -viewport.height * 3 + 1,
+          4: {
+            y: -viewport.height * 4 + 1,
             x: 0.24,
             z: 8.5,
             rotateX: 0,
@@ -146,7 +151,7 @@ export const Experience = (props) => {
           },
         }}
       >
-        <Avatar animation={characterAnimation} wireframe={section === 1} />
+        <Avatar animation={characterAnimation} wireframe={section === 2} />
       </motion.group>
       <ambientLight intensity={2} />
       <motion.group
@@ -185,18 +190,19 @@ export const Experience = (props) => {
       <motion.group
         position={[
           0,
-          isMobile ? -viewport.height : -1.5 * officeScaleRatio,
+          isMobile ? -viewport.height * 2 : -1.5 * officeScaleRatio,
           -10,
         ]}
         animate={{
-          z: section === 1 ? 0 : -10,
+          z: section === 2 ? 0 : -10,
           y:
-            section === 1
-              ? -viewport.height
+            section === 2
+              ? -viewport.height * 2
               : isMobile
-              ? -viewport.height
+              ? -viewport.height * 2
               : -1.5 * officeScaleRatio,
         }}
+        visible={section === 2}
       >
         <directionalLight position={[-5, 3, 5]} intensity={0.7} />
         <Float>
@@ -240,12 +246,12 @@ export const Experience = (props) => {
         position={[0.1, 0, 0]}
         animate={{
           y:
-            section === 2
-              ? 0
-              : section === 3
+            section === 3
+              ? -viewport.height - 0.5
+              : section === 4
               ? viewport.height * 2
               : -viewport.height * 3, // Custom transition
-          opacity: section === 2 ? 1 : section === 3 ? 0.5 : 0, // Section 2 fades out as Section 3 appears
+          opacity: section === 3 ? 1 : section === 4 ? 0.5 : 0, // Section 2 fades out as Section 3 appears
         }}
         transition={{
           duration: 0.8, // Slightly longer transition for smoothness

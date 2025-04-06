@@ -6,29 +6,30 @@ import * as THREE from "three";
 export const Background = () => {
   const material = useRef();
   const color = useRef({
-    color: "#f3d9fa",
+    color: "#b9bcff",
   });
   const data = useScroll();
 
   const tl = useRef();
 
   useFrame(() => {
-    tl.current?.progress(data.scroll.current);
+    tl.current.progress(data.scroll.current);
     material.current.color = new THREE.Color(color.current.color);
   });
 
   useEffect(() => {
-    // Explicitly set the initial color before animation starts
-    color.current.color = "#f3d9fa";
-    material.current.color = new THREE.Color("#f3d9fa");
-
     tl.current = gsap.timeline();
     tl.current.to(color.current, {
-      color: "#9b96dd",
+      color: "#dee2e6",
     });
+    tl.current.to(color.current, {
+      color: "#495057",
+    });
+
     tl.current.to(color.current, {
       color: "#7a7ca5",
     });
+
     tl.current.to(color.current, {
       color: "#9b96dd",
     });
@@ -36,7 +37,7 @@ export const Background = () => {
 
   return (
     <group>
-      <Sphere scale={[30, 30, 30]}>
+      <Sphere scale={[40, 40, 40]}>
         <meshBasicMaterial
           ref={material}
           side={THREE.BackSide}

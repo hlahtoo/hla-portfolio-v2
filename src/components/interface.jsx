@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import { useAtom } from "jotai";
 import { currentProjectAtom, projects } from "./Projects";
 import { ValidationError, useForm } from "@formspree/react";
+import { useRef } from "react";
 
 const Section = (props) => {
   const { children, mobileTop } = props;
@@ -36,6 +37,7 @@ export const Interface = (props) => {
   return (
     <div className="flex flex-col items-center w-screen">
       <AboutSection setSection={setSection} />
+      <ExperienceAndEducationSection />
       <SkillsSection />
       <ProjectsSection />
       <ContactSection />
@@ -53,7 +55,7 @@ const AboutSection = (props) => {
         <span className="bg-white px-1 italic">Hla Htoo</span>
       </h1>
       <motion.p
-        className="text-lg text-gray-600 mt-4"
+        className="text-lg text-black-400 mt-4"
         initial={{
           opacity: 0,
           y: 25,
@@ -67,9 +69,10 @@ const AboutSection = (props) => {
           delay: 1.5,
         }}
       >
-        I make YouTube videos to help developers
+        From constructing infrastructures to developing interfaces,
+        <br />I build full-stack web apps that are smart,
         <br />
-        learn how to build 3D apps
+        scalable, and impactful.
       </motion.p>
       <motion.button
         onClick={() => setSection(3)}
@@ -96,12 +99,20 @@ const AboutSection = (props) => {
 
 const skills = [
   {
-    title: "React / React Native",
+    title: "React",
     level: 90,
   },
   {
     title: "Nodejs",
     level: 90,
+  },
+  {
+    title: "Bun",
+    level: 80,
+  },
+  {
+    title: "Nextjs",
+    level: 60,
   },
   {
     title: "Typescript",
@@ -118,16 +129,16 @@ const skills = [
 ];
 const languages = [
   {
-    title: "🇫🇷 French",
-    level: 100,
-  },
-  {
-    title: "🇺🇸 English",
+    title: "MongoDB",
     level: 80,
   },
   {
-    title: "🇯🇵 Japanese",
-    level: 20,
+    title: "MySQL",
+    level: 70,
+  },
+  {
+    title: "PostgreSQL",
+    level: 60,
   },
 ];
 
@@ -180,7 +191,7 @@ const SkillsSection = () => {
         </div>
         <div>
           <h2 className="text-3xl md:text-5xl font-bold mt-10 text-white">
-            Languages
+            Databases
           </h2>
           <div className="mt-8 space-y-4">
             {languages.map((lng, index) => (
@@ -230,6 +241,139 @@ const SkillsSection = () => {
   );
 };
 
+const Details = ({ position, company, companyLink, time, address, work }) => {
+  return (
+    <li className="mb-6 last:mb-0 flex items-start gap-6 relative">
+      {/* Dot */}
+      <div className="w-3 h-3 bg-indigo-500 rounded-full absolute -left-5 top-2.5" />
+      <div>
+        <h3 className="text-lg md:text-xl font-semibold text-black">
+          {position}
+          <a
+            href={`${companyLink}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-500 ml-2"
+          >
+            @{company}
+          </a>
+        </h3>
+        <p className="text-sm text-gray-500 mt-0.5">
+          {time} | {address}
+        </p>
+        <p className="text-md text-gray-700 mt-2 leading-relaxed">{work}</p>
+      </div>
+    </li>
+  );
+};
+
+const EducationDetail = ({ degree, school, schoolLink, time, address }) => {
+  return (
+    <li className="mb-6 last:mb-0 flex items-start gap-6 relative">
+      {/* Dot */}
+      <div className="w-3 h-3 bg-indigo-500 rounded-full absolute -left-5 top-2.5" />
+      <div>
+        <h3 className="text-lg md:text-xl font-semibold text-black">
+          {degree}
+          <a
+            href={`https://${schoolLink}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-500 ml-2"
+          >
+            @{school}
+          </a>
+        </h3>
+        <p className="text-sm text-gray-500 mt-0.5">
+          {time} | {address}
+        </p>
+      </div>
+    </li>
+  );
+};
+
+const ExperienceAndEducationSection = () => {
+  return (
+    <Section>
+      <div className="w-full py-20">
+        <h2 className="font-bold text-5xl md:text-7xl text-black mb-20 text-center">
+          Experience & Education
+        </h2>
+
+        {/* EXPERIENCE */}
+        <div className="w-[90%] md:w-[75%] mx-auto mb-20">
+          <h3 className="text-2xl font-semibold text-black mb-6">Experience</h3>
+
+          <div className="relative pl-10">
+            {/* Vertical Line for Experience */}
+            <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500 rounded-full" />
+            <ul className="ml-4">
+              <Details
+                position="Research Assistant"
+                company="Northeastern University"
+                companyLink="https://www.northeastern.edu"
+                time="May 2024 - Present"
+                address="Boston, Massachusetts, United States"
+                work="Led the development of a 3D algorithm-learning game using Three.js and MongoDB, implemented data analytics tools for instructors to track student performance, and co-authored a research paper on gamification's educational impact."
+              />
+              <Details
+                position="Water Resources Engineer"
+                company="Stetson Engineers Inc."
+                companyLink="https://www.stetsonengineers.com/"
+                time="Feb 2023 - Jan 2025"
+                address="San Rafael, California, United States"
+                work="Designed pipelines and storage tanks in Civil 3D, prepared cost estimates, and reviewed contracts and specifications to ensure efficient water infrastructure and regulatory compliance."
+              />
+              <Details
+                position="Geotechnical Engineer"
+                company="Lahlaf Geotechnical Consulting, Inc."
+                companyLink="https://www.lgcinc.net/"
+                time="Feb 2022 - Nov 2022"
+                address="Billerica, Massachusetts, United States"
+                work="Performed field investigations, laboratory testing, and geotechnical analyses to support foundation and earthwork projects, while preparing technical reports, reviewing submittals/RFIs, and ensuring compliance through on-site construction observations."
+              />
+              <Details
+                position="Civil Engineer / Assistant Project Manager"
+                company="MassDOT"
+                companyLink="https://www.mass.gov/orgs/massachusetts-department-of-transportation"
+                time="Aug 2019 - Feb 2022"
+                address="Boston, Massachusetts, United States"
+                work="Successfully led two $5M+ bridge reconstruction projects in Boston, delivering them under budget with at least 3% cost savings and an 87% on-time milestone rate through strategic planning and efficient resource management."
+              />
+            </ul>
+          </div>
+        </div>
+
+        {/* EDUCATION */}
+        <div className="w-[90%] md:w-[75%] mx-auto">
+          <h3 className="text-2xl font-semibold text-black mb-6">Education</h3>
+
+          <div className="relative pl-10">
+            {/* Vertical Line for Education */}
+            <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500 rounded-full" />
+            <ul className="ml-4">
+              <EducationDetail
+                degree="M.S. Computer Science"
+                school="Northeastern University"
+                schoolLink="www.northeastern.edu"
+                time="2023 - 2025"
+                address="Boston, MA"
+              />
+              <EducationDetail
+                degree="B.S. Civil Engineering"
+                school="University of Massachusetts Lowell"
+                schoolLink="www.uml.edu"
+                time="2015 - 2019"
+                address="Lowell, MA"
+              />
+            </ul>
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+};
+
 const ProjectsSection = () => {
   const [currentProject, setCurrentProject] = useAtom(currentProjectAtom);
 
@@ -243,7 +387,7 @@ const ProjectsSection = () => {
 
   return (
     <Section>
-      <div className="flex w-full h-full gap-8 items-center justify-center">
+      <div className="flex mb-[-15%] w-full h-full gap-8 items-center justify-center">
         <button
           className="hover:text-indigo-600 transition-colors"
           onClick={previousProject}

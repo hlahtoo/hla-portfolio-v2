@@ -6,8 +6,6 @@ export const LoadingScreen = (props) => {
   const { progress, total, loaded, item } = useProgress();
 
   useEffect(() => {
-    console.log(progress, total, loaded, item);
-    console.log(experienceReady);
     if (progress === 100 && experienceReady) {
       setTimeout(() => {
         setStarted(true);
