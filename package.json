@@ -15,6 +15,7 @@
     "framer-motion": "^12.4.10",
     "framer-motion-3d": "^12.4.10",
     "gsap": "^3.12.7",
+    "howler": "^2.2.4",
     "jotai": "^2.12.1",
     "leva": "^0.10.0",
     "react": "^19.0.0",
