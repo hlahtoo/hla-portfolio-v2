@@ -297,7 +297,7 @@ const ExperienceAndEducationSection = () => {
     <Section>
       <div className="w-full py-20">
         <h2 className="font-bold text-5xl md:text-7xl text-black mb-20 text-center">
-          Experience & Education
+          About Me
         </h2>
 
         {/* EXPERIENCE */}

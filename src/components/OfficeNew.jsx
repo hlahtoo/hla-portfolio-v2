@@ -754,13 +754,13 @@ export function OfficeNew(props) {
     // 🏠 Handle Modal Popups
     if (object.name.includes("Work_Button")) {
       console.log("Switching to Work Section");
-      onSectionChange(1);
+      onSectionChange(3);
     } else if (object.name.includes("About_Button")) {
       console.log("Switching to About Section");
-      onSectionChange(2);
+      onSectionChange(1);
     } else if (object.name.includes("Contact_Button")) {
       console.log("Switching to Contact Section");
-      onSectionChange(3);
+      onSectionChange(4);
     }
   }
 
